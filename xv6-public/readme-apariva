@@ -1,0 +1,12 @@
+Priority Scheduler:
+	1. created two new system calls as mentioned. 
+	2. Added three new fields in the proc struct namely priority, high priority and low priority. 
+	3. Added code to keep track of time for which a process runs
+	4. Added code to scheduler() to replace round robin to priotiy based scheduler. How it works is: if it finds a runnable process, it again chekcs if any other runnable process ahs higher priority than this. If so schedule that
+
+File system Integrity:
+	1. Mainly changed code in 4 functions: readi(), writei(), bmap() and fstat
+	2. In bmap(), whenever a T_CHECKED is asked for, then read the block no from thee 3 bytes and cheksum from the first byte
+	3. In writei(), whenever something is written to T_CHECKED file, compute rthe new chekcsum of the block and store it in the first byte of corresponding ip->addrs
+	4. In readi(), whenever read request from T_CHECKED file, first check existing checksum with computed checksum of blaock. If success then ok else return -1
+	5. created filestat program. This needed minimal changes. Changed fstat() system call. WHenever T_CHECKED file is using fstat, then we compute the chekcsum of all blocks that the file is contained in. We pass in a struct in which we fill the info about file.
